@@ -1,6 +1,6 @@
 <div class="container">
     <div class="header">
-            <h3>Weeks Schedule</h3>
+            <h1>Weeks Schedule</h1>
     </div>
     <div class="content">
         <div class="weeks-schedule">
@@ -24,45 +24,63 @@
                 </div>
             }
         </div>
-        <div class="form">
-            <h2>Add Medicine</h2>
-            <form [formGroup]="form" (ngSubmit)="addMedicine()">
-                <mat-form-field appearance="fill">
-                    <mat-label>Name</mat-label>
-                    <input matInput formControlName="name" name="name" required>
-                    @if (form.get('name')?.hasError('maxlength') && form.get('name')?.touched) {
-                        <mat-error>Maximum 30 characters allowed</mat-error>
-                    }
-                    @if (form.get('name')?.hasError('required') && form.get('name')?.touched) {
-                        <mat-error>Name is required</mat-error>
-                    }
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label>Dose</mat-label>
-                    <input matInput formControlName="dose" name="dose" type="number" required>
-                    @if (form.get('dose')?.hasError('maxlength') && form.get('dose')?.touched) {
-                        <mat-error>Maximum 30 characters allowed</mat-error>
-                    }
-                    @if (form.get('dose')?.hasError('required') && form.get('dose')?.touched) {
-                        <mat-error>Name is required</mat-error>
-                    }
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label>Time</mat-label>
-                    <input matInput [matTimepicker]="picker" formControlName="time" name="time" required>
-                    <mat-timepicker-toggle matIconSuffix [for]="picker"/>
-                    <mat-timepicker #picker/>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label>Day</mat-label>
-                    <mat-select formControlName="day" name="day" required>
-                        @for(day of weekDays; track day) {
-                            <mat-option [value]="day">{{ day }}</mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
-                <button mat-icon-button color="primary" type="submit"><mat-icon>add</mat-icon></button>
-            </form>
+        
+        <div class="form-content">
+            <div class="form">
+                <div class="form-header">
+                    <h2>Add Medicine</h2>
+                    <button class="form-toogle" mat-icon-button color="primary" (click)="hideForm()"><mat-icon>{{ showForm() ? 'add' : 'remove' }}</mat-icon></button>
+                </div>
+                <div [hidden]="showForm()">
+                    <form [formGroup]="form" (ngSubmit)="addMedicine()">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Name</mat-label>
+                            <input matInput formControlName="name" name="name" required>
+                            @if (form.get('name')?.hasError('maxlength') && form.get('name')?.touched) {
+                                <mat-error>Maximum 30 characters allowed</mat-error>
+                            }
+                            @if (form.get('name')?.hasError('required') && form.get('name')?.touched) {
+                                <mat-error>Name is required</mat-error>
+                            }
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Dose</mat-label>
+                            <mat-select formControlName="dose" name="dose" required>
+                                @for(num of doseOptions; track num) {
+                                    <mat-option [value]="num">{{ num }}</mat-option>
+                                }
+                            </mat-select>
+                            @if (form.get('dose')?.hasError('maxlength') && form.get('dose')?.touched) {
+                                <mat-error>Maximum 30 characters allowed</mat-error>
+                            }
+                            @if (form.get('dose')?.hasError('required') && form.get('dose')?.touched) {
+                                <mat-error>Name is required</mat-error>
+                            }
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Time</mat-label>
+                            <input matInput [matTimepicker]="picker" formControlName="time" name="time" required>
+                            <mat-timepicker-toggle matIconSuffix [for]="picker"/>
+                            <mat-timepicker #picker/>
+                            @if (form.get('time')?.hasError('required') && form.get('time')?.touched) {
+                                <mat-error>Name is required</mat-error>
+                            }
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Day</mat-label>
+                            <mat-select formControlName="day" name="day" required>
+                                @for(day of weekDays; track day) {
+                                    <mat-option [value]="day">{{ day }}</mat-option>
+                                }
+                            </mat-select>
+                            @if (form.get('day')?.hasError('required') && form.get('day')?.touched) {
+                                <mat-error>Name is required</mat-error>
+                            }
+                        </mat-form-field>
+                        <button mat-icon-button color="primary" type="submit"><mat-icon>add</mat-icon></button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>

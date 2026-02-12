@@ -18,11 +18,13 @@ import { MatTimepickerModule } from '@angular/material/timepicker';
 export class WeeksSchedule {
   form: FormGroup
   weekDays = Object.values(WeekDays);
+  showForm = signal(false);
   weeksSchedule = signal<Medicines[]>([
     { id: 1, name: 'Medicine 1', time: new Date, dose: '1 pill', day: WeekDays.Monday },
     { id: 2, name: 'Medicine 2', time: new Date, dose: '2 pills', day: WeekDays.Tuesday },
     { id: 3, name: 'Medicine 3', time: new Date, dose: '1 pill', day: WeekDays.Wednesday },
   ]);
+  doseOptions = Array.from({length: 20}, (_, i) => i + 1);
 
   constructor() {
     this.form = new FormGroup({
@@ -44,7 +46,7 @@ export class WeeksSchedule {
   public addMedicine(): void {
     if (this.form.valid) {
       const newMedicine: Medicines = {
-        id: Date.now(),
+        id: this.weekDays.length + 1,
         name: this.form.value.name,
         time: this.form.value.time,
         dose: this.form.value.dose,
@@ -52,7 +54,13 @@ export class WeeksSchedule {
       };
       this.weeksSchedule.update(medicines => [...medicines, newMedicine]);
       this.form.reset();
+      this.form.markAsUntouched();
+      this.form.markAsPristine();
     }
+  }
+
+  public hideForm(): void {
+    this.showForm.set(!this.showForm());
   }
 
 }
