@@ -1,0 +1,36 @@
+.container {
+    margin: auto;
+    padding: 16px;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .content {
+
+    .weeks-schedule {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        @media (min-width: 600px) {
+        flex-direction: row;
+        }
+
+        .day {
+            mat-card {
+                flex: 1;
+                padding: 16px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+        }
+    }
+    
+  }
+}
