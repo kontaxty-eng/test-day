@@ -5,11 +5,18 @@
 /tmp
 /out-tsc
 /bazel-out
+test-day/dist
+test-day/.angular
 
 # Node
 /node_modules
+test-day/node_modules
+backend/node_modules
 npm-debug.log
 yarn-error.log
+
+# Environment
+backend/.env
 
 # IDEs and editors
 .idea/
